@@ -17,7 +17,7 @@ class TransactionView(APIView):
         return JsonResponse({'transactions' : serializer.data}, safe=False, status=status.HTTP_200_OK)
 
     def post(self, request):
-        payload = json.loads(request.body)
+        payload = json.loads(request.body.decode('utf-8'))
         try:
             _validate_transaction(payload['amount'])
             transaction = Transaction.objects.create(
